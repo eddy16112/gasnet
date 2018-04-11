@@ -1,0 +1,44 @@
+diff --git a/ibv-conduit/gasnet_core.c b/ibv-conduit/gasnet_core.c
+index 8703667..c7b47ab 100644
+--- a/ibv-conduit/gasnet_core.c
++++ b/ibv-conduit/gasnet_core.c
+@@ -3615,7 +3615,6 @@ extern int gasnetc_AMReplyLongM(
+ */
+ #if !GASNETC_NULL_HSL
+ extern void gasnetc_hsl_init   (gasnet_hsl_t *hsl) {
+-  GASNETI_CHECKATTACH();
+   gasneti_mutex_init(&(hsl->lock));
+ 
+   #if GASNETC_USE_INTERRUPTS
+@@ -3625,7 +3624,6 @@ extern void gasnetc_hsl_init   (gasnet_hsl_t *hsl) {
+ }
+ 
+ extern void gasnetc_hsl_destroy(gasnet_hsl_t *hsl) {
+-  GASNETI_CHECKATTACH();
+   gasneti_mutex_destroy(&(hsl->lock));
+ 
+   #if GASNETC_USE_INTERRUPTS
+@@ -3635,7 +3633,6 @@ extern void gasnetc_hsl_destroy(gasnet_hsl_t *hsl) {
+ }
+ 
+ extern void gasnetc_hsl_lock   (gasnet_hsl_t *hsl) {
+-  GASNETI_CHECKATTACH();
+ 
+   {
+     #if GASNETI_STATS_OR_TRACE
+@@ -3671,7 +3668,6 @@ extern void gasnetc_hsl_lock   (gasnet_hsl_t *hsl) {
+ }
+ 
+ extern void gasnetc_hsl_unlock (gasnet_hsl_t *hsl) {
+-  GASNETI_CHECKATTACH();
+ 
+   #if GASNETC_USE_INTERRUPTS
+     /* conduits with interrupt-based handler dispatch need to add code here to 
+@@ -3687,7 +3683,6 @@ extern void gasnetc_hsl_unlock (gasnet_hsl_t *hsl) {
+ }
+ 
+ extern int  gasnetc_hsl_trylock(gasnet_hsl_t *hsl) {
+-  GASNETI_CHECKATTACH();
+ 
+   {
+     int locked = (gasneti_mutex_trylock(&(hsl->lock)) == 0);

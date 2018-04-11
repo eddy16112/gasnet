@@ -1,5 +1,4 @@
 --enable-segment-fast
---disable-pshm
 --with-segment-mmap-max=16GB
 --enable-par
 --disable-seq
@@ -10,7 +9,8 @@
 --disable-portals
 --disable-mpi
 --disable-smp
---disable-pshm
+--enable-pshm
 --disable-aligned-segments
 --enable-ibv
 --with-ibv-max-hcas=4
+--enable-debug
