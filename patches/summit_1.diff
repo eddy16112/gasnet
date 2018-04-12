@@ -1,0 +1,10 @@
+--- a/ibv-conduit/gasnet_core_connect.c
++++ b/ibv-conduit/gasnet_core_connect.c
+@@ -15,7 +15,7 @@
+ /*
+   The following configuration cannot yet be overridden by environment variables.
+ */
+-#define GASNETC_QP_MIN_RNR_TIMER        6       /*IB_RNR_NAK_TIMER_0_08*/
++#define GASNETC_QP_MIN_RNR_TIMER        30
+ #define GASNETC_QP_STATIC_RATE          0
+ #define GASNETC_QP_RNR_RETRY            7       /* retry forever, but almost never happens */

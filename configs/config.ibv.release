@@ -13,4 +13,3 @@
 --disable-aligned-segments
 --enable-ibv
 --with-ibv-max-hcas=4
---enable-debug

@@ -5,7 +5,9 @@ GASNET_VERSION = GASNet-1.30.0
 PATCHES =
 # mpifix.patch not needed after 1.28.2
 #PATCHES += patches/mpifix.patch
-PATCHES += patches/ibv-no-hsl-checking.diff
+#PATCHES += patches/ibv-no-hsl-checking.diff
+PATCHES += patches/summit_1.diff
+PATCHES += patches/summit_2.diff
 
 ifeq ($(findstring daint,$(shell uname -n)),daint)
 CROSS_CONFIGURE = cross-configure-cray-aries-slurm
