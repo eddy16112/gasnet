@@ -1,6 +1,7 @@
 --enable-segment-fast
 --disable-pshm
---with-segment-mmap-max=16GB
+--disable-pshm-xpmem
+--with-segment-mmap-max=4GB
 --enable-par
 --disable-seq
 --disable-parsync
@@ -9,6 +10,7 @@
 --disable-portals
 --disable-mpi
 --disable-smp
---disable-pshm
 --disable-aligned-segments
---enable-mpi-compat
+--disable-mpi-compat
+--enable-pmi
+--with-aries-max-medium=512
