@@ -44,6 +44,7 @@ struct _threaddata_t {
 	int	tid_peer_local; /* global thread id of local peer thread */
 
 	volatile int	flag;
+  gasnett_atomic_t reply_counter;
 	char _pad[GASNETT_CACHE_LINE_BYTES];
 } 
 threaddata_t;
@@ -383,6 +384,8 @@ threadmain(void *args)
       func(td);
       //if (td->ltid == 0 && !threadstress) TEST_PROGRESS_BAR(i, iters);
     }
+    GASNET_BLOCKUNTIL(gasnett_atomic_read(&(td->reply_counter),0) == tot_threads);
+    gasnett_atomic_set(&(td->reply_counter),0,0);
 	}
 
 	thread_barrier();
@@ -423,6 +426,7 @@ alloc_thread_data(int threads)
 				if (i == myrank) {
 					td = &tt_thread_data[j];
 
+          gasnett_atomic_set(&(td->reply_counter),0,0);
 					td->tid = tid;
 					td->ltid = j;
 					td->tid_peer_local = base + 
@@ -550,6 +554,7 @@ pong_longhandler(gex_Token_t token, void *buf, size_t nbytes, harg_t idx) {
         assert(buf == tt_addr_map[myrank * threads_num + idx]);
         assert((uintptr_t)buf + nbytes <= (uintptr_t)myseg + TEST_SEGSZ);
 	tt_thread_data[idx].flag++;
+  gasnett_atomic_increment(&(tt_thread_data[idx].reply_counter),0);
 }
 
 /****************************************************************/
@@ -681,8 +686,8 @@ test_amlong(threaddata_t *tdata)
 		    hidx_ping_longhandler, laddr, len, raddr,
 		    tdata->ltid, peer));
 #endif
-	GASNET_BLOCKUNTIL(tdata->flag == 0);
-	tdata->flag = -1;
+	// GASNET_BLOCKUNTIL(tdata->flag == 0);
+	// tdata->flag = -1;
 
 	//ACTION_PRINTF("tid=%3d> AMLongRequest to tid=%3d complete.", tdata->tid, peer);
 }
