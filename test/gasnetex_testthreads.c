@@ -671,7 +671,7 @@ test_amlong(threaddata_t *tdata)
         gasnett_local_wmb();
 	ACTION_PRINTF("tid=%3d> AMLongRequest (sz=%7d) to tid=%3d node=%3d", tdata->tid, (int)len, peer, node);
 
-#if 1
+#ifdef TEST_GASNETEX
 	gex_AM_RequestLong3(myteam, node, hidx_ping_longhandler, laddr, len, raddr,
                                 GEX_EVENT_NOW, 0, tdata->ltid, peer,
                                 (harg_t)MIN((size_t)0xfffffffU,
