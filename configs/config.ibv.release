@@ -10,5 +10,5 @@
 --enable-pshm
 --enable-mpi-compat
 
---with-ibv-max-hcas=4
+--with-ibv-max-hcas=8
 --enable-kind-cuda-uva=probe
